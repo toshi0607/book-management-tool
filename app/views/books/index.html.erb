@@ -1,7 +1,20 @@
 <%- model_class = Book -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1>書籍一覧</h1>
 </div>
+
+<div>
+  <h2>書籍検索</h2>
+    <%= search_form_for @search do |f| %>
+      <%= f.label :title_cont, 'タイトル' %>
+      <%= f.text_field :title_cont %>
+      <div>
+        <%= f.submit '検索する', :class =>'btn btn-primary'%>
+      </div>
+    <% end %>
+</div>
+
+<h2>検索結果</h2>
 <table class="table table-striped">
   <thead>
     <tr>

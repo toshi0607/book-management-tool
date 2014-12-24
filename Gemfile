@@ -45,5 +45,9 @@ gem 'twitter-bootstrap-rails', '~> 2.2.8'
 gem 'font-awesome-rails'
 gem 'bootstrap-sass', '2.3.2.0'
 
+# 検索
+gem 'ransack'   # この行を追加
+gem 'rails-i18n'
+
 
 
