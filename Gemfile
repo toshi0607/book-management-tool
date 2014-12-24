@@ -38,3 +38,12 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Bootstrap
+gem 'less-rails'
+gem 'therubyracer'
+gem 'twitter-bootstrap-rails', '~> 2.2.8'
+gem 'font-awesome-rails'
+gem 'bootstrap-sass', '2.3.2.0'
+
+
+
