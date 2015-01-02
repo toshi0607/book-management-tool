@@ -21,7 +21,6 @@
       <th><%= model_class.human_attribute_name("ID") %></th>
       <th><%= model_class.human_attribute_name("タイトル") %></th>
       <th><%= model_class.human_attribute_name("書籍情報") %></th>
-      <th><%= model_class.human_attribute_name("ISBN") %></th>
       <th><%=t '.actions', :default => t("操作") %></th>
     </tr>
   </thead>
@@ -31,7 +30,6 @@
         <td><%= link_to book.id, book_path(book) %></td>
         <td><%= book.title %></td>
         <td><%= book.description %></td>
-        <td><%= book.isbn %></td>
         <td>
           <%= link_to t('.edit', :default => t("編集")),
                       edit_book_path(book), :class => 'btn btn-mini' %>

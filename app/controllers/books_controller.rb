@@ -1,4 +1,8 @@
+require 'net/http'
+
 class BooksController < ApplicationController
+
+  protect_from_forgery except: :isbn_search
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   # GET /books
@@ -22,6 +26,17 @@ class BooksController < ApplicationController
   # GET /books/new
   def new
     @book = Book.new
+  end
+
+  def isbn_search
+
+    applicationId = '1062746000989149114'
+
+    Net::HTTP.start('app.rakuten.co.jp', 443, use_ssl: true,
+      ca_file: 'tmp/cacert.pem') do |https|
+      res = https.get("/services/api/BooksBook/Search/20130522?format=json&isbn=#{ERB::Util.url_encode(params[:isbn])}&applicationId=#{applicationId}&formatVersion=2")
+      render :json => res.body
+    end
   end
 
   # GET /books/1/edit
