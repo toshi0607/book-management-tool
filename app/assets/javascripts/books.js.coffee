@@ -6,6 +6,7 @@ init = ->
     author        = data.Items[0].author
     #console.log(data.Items[0].title)
     console.log(bookTitle)
+    console.log(author)
     #<ul id="result">要素の配下を空に
     $('#title'      ).empty()
     $('#description').empty()
