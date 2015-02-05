@@ -8,6 +8,8 @@
     <%= search_form_for @search do |f| %>
       <%= f.label :title_cont, 'タイトル' %>
       <%= f.text_field :title_cont %>
+      <%= f.label :genre_cont, 'ジャンル' %>
+      <%= f.text_field :genre_cont %>     
       <div>
         <%= f.submit '検索する', :class =>'btn btn-primary'%>
       </div>
@@ -21,6 +23,8 @@
       <th><%= model_class.human_attribute_name("ID") %></th>
       <th><%= model_class.human_attribute_name("タイトル") %></th>
       <th><%= model_class.human_attribute_name("書籍情報") %></th>
+      <th><%= model_class.human_attribute_name("ジャンル") %></th>
+      <th><%= model_class.human_attribute_name("メモ") %></th>
       <th><%=t '.actions', :default => t("操作") %></th>
     </tr>
   </thead>
@@ -30,6 +34,8 @@
         <td><%= link_to book.id, book_path(book) %></td>
         <td><%= book.title %></td>
         <td><%= book.description %></td>
+        <td><%= book.genre %></td>
+        <td><%= book.memo %></td>
         <td>
           <%= link_to t('.edit', :default => t("編集")),
                       edit_book_path(book), :class => 'btn btn-mini' %>
