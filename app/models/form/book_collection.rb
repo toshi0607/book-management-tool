@@ -1,5 +1,5 @@
 class Form::BookCollection < Form::Base
-  DEFAULT_ITEM_COUNT = 5
+  DEFAULT_ITEM_COUNT = 10
   attr_accessor :books
 
   def initialize(attributes = {})
