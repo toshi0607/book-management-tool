@@ -33,7 +33,7 @@ class BooksController < ApplicationController
     applicationId = '1062746000989149114'
 
     Net::HTTP.start('app.rakuten.co.jp', 443, use_ssl: true,
-      ca_file: '/usr/lib/ssl/certs/ca-certificates.crt') do |https|
+      ca_file: Constants::CA_FILE) do |https|
       res = https.get("/services/api/BooksBook/Search/20130522?format=json&isbn=#{ERB::Util.url_encode(params[:isbn])}&applicationId=#{applicationId}&formatVersion=2")
       render :json => res.body
     end
