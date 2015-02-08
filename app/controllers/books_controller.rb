@@ -25,7 +25,7 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    @book = Book.new
+    @form = Form::BookCollection.new
   end
 
   def isbn_search
@@ -49,16 +49,11 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new(book_params)
-
-    respond_to do |format|
-      if @book.save
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
-        format.json { render :show, status: :created, location: @book }
-      else
-        format.html { render :new }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
-      end
+    @form = Form::BookCollection.new(book_collection_params)
+    if @form.save
+      redirect_to :books, notice: "#{@form.target_books.size}件の書籍を登録しました。"
+    else
+      render :new
     end
   end
 
@@ -87,13 +82,20 @@ class BooksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def book_params
-      params.require(:book).permit(:title, :description, :isbn)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def book_params
+    params.require(:book).permit(:title, :description, :isbn)
+  end
+
+  def book_collection_params
+    params
+      .require(:form_book_collection)
+      .permit(books_attributes: Form::Book::REGISTRABLE_ATTRIBUTES)
+  end
+
 end
