@@ -4,10 +4,14 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dt><strong><%= 'タイトル' %>:</strong></dt>
   <dd><%= @book.title %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dt><strong><%= '書籍情報' %>:</strong></dt>
   <dd><%= @book.description %></dd>
+  <dt><strong><%= 'ジャンル' %>:</strong></dt>
+  <dd><%= @book.genre %></dd>
+  <dt><strong><%= 'メモ' %>:</strong></dt>
+  <dd><%= @book.memo %></dd>
 </dl>
 
 <div class="form-actions">
@@ -15,6 +19,9 @@
               books_path, :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("編集")),
               edit_book_path(@book), :class => 'btn' %>
+<%= link_to t('.new', :default => t("登録")),
+            new_book_path,
+            :class => 'btn btn-primary' %>  
   <%= link_to t('.destroy', :default => t("削除")),
               book_path(@book),
               :method => 'delete',
