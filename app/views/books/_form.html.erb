@@ -1,26 +1,24 @@
-<!--ajax対応のフォームを定義-->
-
+<div class="text-left">
+  ※13桁のISBNを「-」なしで入力してください
+</div>
+<br>
 <% 10.times do |i| %> 
-
-<div class = 'form-horizontal'>
-<%= form_tag({ action: 'isbn_search' }, :class => 'isbn_search', id: i, remote: true) do %>
-  <div class="control-group">
-    <%= label_tag :isbn, 'ISBN', :class => 'control-label' %>
-    <div class="controls">
-      <%= text_field_tag :isbn, '', size: 30 %> <%= submit_tag '書籍名を取得', :class => 'btn btn-primary' %>
-    </div>
-    <div class="controls">
-    ※13桁のISBNを「-」なしで入力してください
-    </div>
+  <div class = 'form-horizontal'>
+    <%= form_tag({ action: 'isbn_search' }, :class => 'isbn_search', id: i, remote: true) do %>
+      <div class="control-group">
+        <%= label_tag :isbn, 'ISBN', :class => 'control-label' %>
+        <div class="controls">
+          <%= text_field_tag :isbn, '', size: 30 %> <%= submit_tag '書籍名を取得', :class => 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
   </div>
 <% end %>
+<div class="text-left">
+  ※登録対象をチェックしてください
 </div>
-
-<% end %>
-
-
 <%= form_for(@form, url: books_path, method: :post) do |fb| %>
-<table class="table">
+<table class="table table-striped">
 <thead>
   <tr>
     <th width="60px">登録</th>
@@ -34,27 +32,26 @@
 <%= fb.fields_for :books do |f| %>
   <tr class="item">
   <td class="text-center">
-  <%= f.check_box :register, class: 'top10 registration-checkbox' %>
+    <%= f.check_box :register, class: 'top10 registration-checkbox' %>
   </td>
   <td>
-  <%= f.text_field :title, class: 'form-control' %>
+    <%= f.text_field :title, class: 'form-control' %>
   </td>
   <td>
-  <%= f.text_field :description, class: 'form-control' %>
+    <%= f.text_field :description, class: 'form-control' %>
   </td>
   <td>
-  <%= f.text_field :genre, class: 'form-control' %>
+    <%= f.text_field :genre, class: 'form-control' %>
   </td>
   <td>
-  <%= f.text_field :memo, class: 'form-control' %>
+    <%= f.text_field :memo, class: 'form-control' %>
   </td>
-
 </tr>
 <% end %>
 </tbody>
 </table>
-
 <div class="text-center">
-<%= fb.submit '一括登録', class: 'btn btn-primary' %>
+  <%= fb.submit '一括登録', class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("戻る")), books_path, :class => 'btn' %>
 </div>
 <% end %>
