@@ -1,0 +1,48 @@
+ <div class = 'form-horizontal'>
+ <%= form_tag({ action: 'isbn_search' }, id: 'isbn_search', remote: true) do %>
+   <div class="control-group">
+     <%= label_tag :isbn, 'ISBN', :class => 'control-label' %>
+     <div class="controls">
+     	<%= text_field_tag :isbn, '', size: 30 %>
+     	     </div>
+     <div class="controls">
+     ※13桁のISBNを「-」なしで入力してください
+     </div>
+   </div>
+   -  <div class="form-actions">
+  <%= submit_tag '書籍名を取得', :class => 'btn btn-primary' %>
+</dev>
+ <% end %>
+ </div>
+ <%= form_for @book, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label "タイトル", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, :class => 'text_field', :id => "title" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "書籍情報", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :description, :class => 'text_field', :id => "description" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "ジャンル", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :genre, :class => 'text_field', :id => "genre" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "メモ", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :memo, :class => 'text_field', :id => "memo" %>
+    </div>
+  </div>
+ 
+  <div class="form-actions">
+    <%= f.submit "登録", :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("戻る")),
+                books_path, :class => 'btn' %>
+</div>
+ <% end %>
