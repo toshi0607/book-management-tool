@@ -1,30 +1,28 @@
-<%- model_class = Book -%>
 <div class="page-header">
   <h1>書籍一覧</h1>
 </div>
-
 <div>
   <h2>書籍検索</h2>
-    <%= search_form_for @search do |f| %>
-      <%= f.label :title_cont, 'タイトル' %>
-      <%= f.text_field :title_cont %>
-      <%= f.label :genre_cont, 'ジャンル' %>
-      <%= f.text_field :genre_cont %>     
-      <div>
+    <%= search_form_for (@search), html: {:class => "form-horizontal"} do |f| %>
+      <div class="control-group">
+        <%= f.label :title_cont, 'タイトル' %>
+        <%= f.text_field :title_cont %>
+        <%= f.label :genre_cont, 'ジャンル' %>
+        <%= f.text_field :genre_cont %>     
         <%= f.submit '検索', :class =>'btn btn-primary'%>
       </div>
     <% end %>
 </div>
-
 <h2>検索結果</h2>
+<%= paginate(@books) %>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name("ID") %></th>
-      <th><%= model_class.human_attribute_name("タイトル") %></th>
-      <th><%= model_class.human_attribute_name("書籍情報") %></th>
-      <th><%= model_class.human_attribute_name("ジャンル") %></th>
-      <th><%= model_class.human_attribute_name("メモ") %></th>
+      <th><%= sort_link @search, :id, "ID" %></th>
+      <th><%= sort_link @search, :title, "タイトル" %></th>
+      <th><%= "書籍情報" %></th>
+      <th><%= "ジャンル" %></th>
+      <th><%= "メモ" %></th>
       <th><%=t '.actions', :default => t("操作") %></th>
     </tr>
   </thead>
@@ -37,19 +35,18 @@
         <td><%= book.genre %></td>
         <td><%= book.memo %></td>
         <td>
-          <%= link_to t('.edit', :default => t("編集")),
-                      edit_book_path(book), :class => 'btn btn-mini' %>
+          <%= link_to t('.edit', default: t("編集")),
+            edit_book_path(book), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("削除")),
-                      book_path(book),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '本当に削除しますか？')) },
-                      :class => 'btn btn-mini btn-danger' %>
+            book_path(book), method: :delete,
+            data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: '本当に削除しますか？')) },
+              :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to t('.new', :default => t("登録")),
+<%= paginate(@books) %>
+<%= link_to t('.new', default: t("登録")),
             new_book_path,
             :class => 'btn btn-primary' %>
-<%= paginate(@books) %>
