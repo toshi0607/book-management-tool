@@ -34,12 +34,13 @@ class BooksController < ApplicationController
   end
 
   def edit
+    @book = Book.find_by(id: params[:id])
   end
 
   def create
     @form = Form::BookCollection.new(book_collection_params)
     if @form.save
-      redirect_to :books, notice: "#{@form.target_books.size}件の書籍を登録しました。"
+      redirect_to :books, notice: "#{@form.target_books.size}件の書籍情報を登録しました。"
     else
       render :new
     end
@@ -47,8 +48,9 @@ class BooksController < ApplicationController
 
   def update
     respond_to do |format|
-      if @book.update(book_params)
-        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+      @book = Book.find_by(id: params[:id])
+      if @book.update!(book_params)
+        format.html { redirect_to @book, notice: '書籍情報を更新しました。' }
         format.json { render :show, status: :ok, location: @book }
       else
         format.html { render :edit }
@@ -60,7 +62,7 @@ class BooksController < ApplicationController
   def destroy
     @book.destroy
     respond_to do |format|
-      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
+      format.html { redirect_to books_url, notice: '書籍情報を削除しました。' }
       format.json { head :no_content }
     end
   end
@@ -73,7 +75,7 @@ class BooksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def book_params
-    params.require(:book).permit(:title, :description, :isbn)
+    params.require(:book).permit(:title, :description, :isbn, :genre, :memo)
   end
 
   def book_collection_params
